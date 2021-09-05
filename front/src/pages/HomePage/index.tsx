@@ -1,13 +1,15 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
-  return(
+  return (
     <>
+      <div>home</div>
       <div>
-        sfsd
+        <Link to="/about">About</Link>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default HomePage;

@@ -1,9 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AboutPage = () => {
   return (
     <>
-      <div>sfsd</div>
+      <div>about</div>
+      <div>
+        <Link to="/">Home</Link>
+      </div>
     </>
   );
 };
