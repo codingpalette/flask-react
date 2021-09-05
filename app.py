@@ -1,6 +1,6 @@
-from flask import Flask, request, Response
-from flask_cors import CORS
+from flask import Flask, request, Response, send_from_directory
 from flask_restful import Api
+from flask_cors import CORS
 import pymysql, json
 
 from controllers.join import Join
@@ -14,11 +14,11 @@ api = Api(app)
 # 404 not found > react_router
 @app.errorhandler(404)
 def not_found(e):
-    return app.send_static_file('index.html')
+    return send_from_directory(app.static_folder,'index.html')
 
-@app.route("/")
-def index():
-    return app.send_static_file('index.html')
+@app.route("/", defaults={'path':''})
+def serve(path):
+    return send_from_directory(app.static_folder,'index.html')
 
 def hello():
     print('hello')
@@ -29,10 +29,11 @@ api.add_resource(Join, '/api/join')
 
 
 
-@app.route("/test", methods=['GET', 'POST'])
+@app.route("/api/test", methods=['GET', 'POST'])
 def test():
+    print('123123');
     res = Response("block")
-    res.headers["Access-Control-Allow-Origin"] = "*"
+    print(request.headers)
     if request.method == 'POST':
         print('test')
         return 'aaa'

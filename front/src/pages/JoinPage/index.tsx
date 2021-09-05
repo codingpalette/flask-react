@@ -19,7 +19,7 @@ const JoinPage = () => {
       e.preventDefault();
       console.log(email, password);
       try {
-        const res = await axios.post('/test', { email, password });
+        const res = await axios.post('/api/test', { email, password });
         console.log(res);
       } catch (e) {
         console.error(e);
