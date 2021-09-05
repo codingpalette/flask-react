@@ -8,6 +8,9 @@ const HomePage = () => {
       <div>
         <Link to="/about">About</Link>
       </div>
+      <div>
+        <Link to="/join">회원가입</Link>
+      </div>
     </>
   );
 };

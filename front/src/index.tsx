@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 
 import { BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyles from './assets/css/GlobalStyles';
+
+axios.defaults.withCredentials = true;
+
+axios.defaults.baseURL = 'http://localhost:5000';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,9 +1,11 @@
-from flask import Flask
+from flask import Flask, request, Response
 from flask_cors import CORS
 from flask_restful import Api
 import pymysql, json
 
+from controllers.join import Join
 from controllers.todo import Todo
+
 
 app = Flask(__name__, static_folder='./front/build', static_url_path='/')
 CORS(app)
@@ -23,21 +25,28 @@ def hello():
     return 'aaa'
 
 api.add_resource(Todo, '/api/todos')
+api.add_resource(Join, '/api/join')
 
 
 
-@app.route("/test")
+@app.route("/test", methods=['GET', 'POST'])
 def test():
+    res = Response("block")
+    res.headers["Access-Control-Allow-Origin"] = "*"
+    if request.method == 'POST':
+        print('test')
+        return 'aaa'
+
     #mysql
-    conn = pymysql.connect(host='localhost', user='root', password='root', db='test', charset='utf8')
-    curs = conn.cursor(pymysql.cursors.DictCursor)
-
-    sql = 'select * from users'
-    curs.execute(sql)
-    res = curs.fetchall()
-
-    data = json.dumps(res, ensure_ascii = False, default=str)
-    return data;
+    # conn = pymysql.connect(host='localhost', user='root', password='root', db='test', charset='utf8')
+    # curs = conn.cursor(pymysql.cursors.DictCursor)
+    #
+    # sql = 'select * from users'
+    # curs.execute(sql)
+    # res = curs.fetchall()
+    #
+    # data = json.dumps(res, ensure_ascii = False, default=str)
+    # return data;
 
 
 

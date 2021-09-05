@@ -2,6 +2,8 @@ import React from 'react';
 import loadable from '@loadable/component';
 import { Route, Switch } from 'react-router-dom';
 
+import JoinPage from './pages/JoinPage';
+
 const HomePage = loadable(() => import('./pages/HomePage'));
 const AboutPage = loadable(() => import('./pages/AboutPage'));
 
@@ -11,6 +13,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/about" component={AboutPage} />
+        <Route exact path="/join" component={JoinPage} />
       </Switch>
     </>
   );
