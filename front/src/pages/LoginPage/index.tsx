@@ -1,10 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import axios from 'axios';
-import { JoinContainer } from './styles';
+import { LoginContainer } from './styles';
 
-const JoinPage = () => {
+
+const LoginPage= () => {
   const [email, setEmail] = useState('');
   const [password, setPaddword] = useState('');
+  const [token, setToken] = useState('');
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -19,8 +21,10 @@ const JoinPage = () => {
       e.preventDefault();
       console.log(email, password);
       try {
-        const res = await axios.post('/api/join', { email, password });
+        const res = await axios.post('/api/login', { email, password });
         console.log(res);
+        console.log(res.data.access_token)
+        setToken(res.data.access_token);
       } catch (e) {
         console.error(e);
       }
@@ -28,10 +32,21 @@ const JoinPage = () => {
     [email, password],
   );
 
-  return (
+  const onClickAuth = async () => {
+    console.log(token);
+    try {
+      const res = await axios.get('/api/auth', {headers : {Authorization: `Bearer ${token}`}});
+      console.log(res);
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+
+  return(
     <>
-      <JoinContainer>
-        <div>회원가입</div>
+      <LoginContainer>
+        <div>로그인</div>
 
         <form onSubmit={onSubmit}>
           <div>
@@ -42,12 +57,15 @@ const JoinPage = () => {
           </div>
 
           <div>
-            <button type="submit">가입하기</button>
+            <button type="submit">로그인</button>
           </div>
         </form>
-      </JoinContainer>
+        <div>
+          <button type="button" onClick={onClickAuth}>인증버튼</button>
+        </div>
+      </LoginContainer>
     </>
-  );
-};
+  )
+}
 
-export default JoinPage;
+export default LoginPage;

@@ -1,14 +1,27 @@
 from flask import Flask, request, Response, send_from_directory
 from flask_restful import Api
 from flask_cors import CORS
-import pymysql, json
+from flask_jwt_extended import JWTManager
 
 from controllers.join import Join
 from controllers.todo import Todo
+from controllers.login import Login, Auth
+
+
 
 
 app = Flask(__name__, static_folder='./front/build', static_url_path='/')
 CORS(app)
+
+# 토큰 생성에 사용될 Secret Key를 flask 환경 변수에 등록
+app.config.update(
+    DEBUG = True,
+    JWT_SECRET_KEY = "secret"
+)
+
+# JWT 확장 모듈을 flask 어플리케이션에 등록
+jwt = JWTManager(app)
+
 api = Api(app)
 
 # 404 not found > react_router
@@ -26,6 +39,8 @@ def hello():
 
 api.add_resource(Todo, '/api/todos')
 api.add_resource(Join, '/api/join')
+api.add_resource(Login, '/api/login')
+api.add_resource(Auth, '/api/auth')
 
 
 
