@@ -26,7 +26,7 @@ class Login(Resource):
             result = "success",
             # 검증된 경우, access 토큰 반환
             access_token = create_access_token(identity = args.email)
-        )
+        ), 200
 
 
 class Auth(Resource):
